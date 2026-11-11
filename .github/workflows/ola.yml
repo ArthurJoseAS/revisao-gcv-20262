@@ -19,6 +19,13 @@ jobs:
                     echo "Runner: $RUNNER_OS"
             - name: Tem Docker
               run: docker --version
+    job2: 
+        needs: saudacao
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Sequencia
+              run: echo "Fim" 
+
 
 
                     
