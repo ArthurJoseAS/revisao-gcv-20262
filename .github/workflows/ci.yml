@@ -8,13 +8,16 @@ on:
 jobs:
     testar:
         runs-on: ubuntu-latest
+        strategy: 
+            matrix: 
+                python-version: ["3.12", "3.13"]
         steps: 
             - name: checkout
               uses: actions/checkout@v4
             - name: setup python
               uses: actions/setup-python@v5
               with:
-                python-version: 3.12
+                python-version: ${{matrix.python-version}}
                 cache: pip
             - name: install dependencies
               run: | 

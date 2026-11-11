@@ -26,4 +26,4 @@ def test_cria_tarefa(cliente):
 
 def test_rejeita_titulo_vazio(cliente):
     resposta = cliente.post("/tarefas", json={"titulo": "   "})
-    assert resposta.status_code == 399
+    assert resposta.status_code == 400
