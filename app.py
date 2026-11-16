@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 
 from repositorio import criar_repositorio
 
@@ -11,7 +11,15 @@ def criar_app(repo=None):
     @app.get("/saude")
     def saude():
         return {"status": "ok"}
+    @app.get("/soma")
+    def soma():
+        a = request.args.get('a', type=float)
+        b = request.args.get('b', type = float)
+        assert a is not None and b is not None, (jsonify({"erro": "a ou b são inválidos"}), 400)
+        resultado = a+b
+        return jsonify({"a": a, "b": b, "resultado": resultado})
 
+        
     @app.get("/tarefas")
     def listar():
         return repo.listar()
