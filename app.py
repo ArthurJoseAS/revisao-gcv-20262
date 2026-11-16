@@ -1,3 +1,7 @@
+
+import os
+from unittest import result
+
 from flask import Flask, jsonify, request
 
 from repositorio import criar_repositorio
@@ -17,6 +21,9 @@ def criar_app(repo=None):
         b = request.args.get('b', type = float)
         assert a is not None and b is not None, (jsonify({"erro": "a ou b são inválidos"}), 400)
         resultado = a+b
+        with open("/dados/out.log", "a+") as fs:
+            fs.write(str(resultado) + "\n")
+
         return jsonify({"a": a, "b": b, "resultado": resultado})
 
         
