@@ -30,6 +30,7 @@ jobs:
       needs: testar
       runs-on: ubuntu-latest
       steps:
+        - uses: actions/checkout@v7
         - name: build_docker
           run: docker build -t calculadora:ci .
         - name: subir_container
