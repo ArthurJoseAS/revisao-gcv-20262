@@ -26,6 +26,25 @@ jobs:
               run: | 
                 ruff check .
                 pytest -v
+    imagem:
+      needs: testar
+      runs-on: ubuntu-latest
+      steps:
+        - name: build_docker
+          run: docker build -t calculadora:ci .
+        - name: subir_container
+          run: docker run -p 5000:5000 --name calc calculadora:ci
+        - name: Esperar a API
+          run: |
+            for i in $(seq 1 15); do
+              curl -fs http://localhost:5000/saude && exit 0
+              sleep 2
+            done
+            exit 1
+        - name: caso_de_falha
+          if: failure()
+          run: docker logs calc
+
 
 
 
